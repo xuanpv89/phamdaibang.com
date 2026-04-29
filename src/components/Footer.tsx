@@ -15,9 +15,9 @@ export const Footer: FunctionComponent = () => {
         </div>
         <div className="text-xs text-muted-foreground hidden lg:block">
           <Link
-            href={`https://phamdaibang.com/?utm_source=next-js-template&utm_medium=web&utm_campaign=${config.baseUrl}`}
+            href={`https://folksteam.com${config.baseUrl}`}
           >
-            Blog powered by Folks
+            Blog powered by FOLKS
           </Link>
         </div>
         <div>
