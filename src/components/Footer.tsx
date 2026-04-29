@@ -15,7 +15,7 @@ export const Footer: FunctionComponent = () => {
         </div>
         <div className="text-xs text-muted-foreground hidden lg:block">
           <Link
-            href={`https://folksteam.com${config.baseUrl}`}
+            href={`https://folksteam.com`}
           >
             BLOG POWERED BY FOLKS
           </Link>
