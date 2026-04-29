@@ -1,7 +1,7 @@
 const buildConfig = () => {
   const blogId = process.env.NEXT_PUBLIC_BLOG_ID;
   if (!blogId) throw new Error("NEXT_PUBLIC_BLOG_ID is missing");
-  const name = process.env.NEXT_PUBLIC_BLOG_DISPLAY_NAME || "Phamdaibang.com";
+  const name = process.env.NEXT_PUBLIC_BLOG_DISPLAY_NAME || "Pham Dai Bang";
   const copyright = process.env.NEXT_PUBLIC_BLOG_COPYRIGHT || "Pham Dai Bang";
   const defaultTitle =
     process.env.NEXT_DEFAULT_METADATA_DEFAULT_TITLE || "Pham Dai Bang’s Writing Corner";
