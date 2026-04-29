@@ -6,10 +6,7 @@ import Markdown from "react-markdown";
 
 const content = `# Welcome to the corner of Phạm Đại Bàng.
 
-![Phamdaibang](https://github.com/xuanpv89/pdb-travel-blog/blob/288b6bc77a9891317f30ef84aa0b4bf2541c8f21/public/images/phamdaibang-profile.png/public)
-
-Welcome to the corner of Phạm Đại Bàng.
-
+![Phamdaibang](/images/phamdaibang-profile.png)
 In a world filled with constant noise, this blog serves as a quiet retreat for those who appreciate the weight of words and the depth of reflection. Here, I explore life through multiple lenses—from the analytical to the purely imaginative.
 
 Inside, you will find:
