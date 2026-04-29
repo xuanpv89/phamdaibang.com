@@ -6,7 +6,7 @@ import Markdown from "react-markdown";
 
 const content = `# Welcome to the corner of Phạm Đại Bàng.
 
-![Samantha](https://64.media.tumblr.com/12d4206bdf7f250a245a7e82a65ef4dd/4a4a5bf663837ac1-44/s2048x3072/01c0699b7012412cb4302ff1ba03eaefbfd7fd29.jpg/public)
+![Phamdaibang](public/images/phamdaibang-profile.png/public)
 
 Welcome to the corner of Phạm Đại Bàng.
 
