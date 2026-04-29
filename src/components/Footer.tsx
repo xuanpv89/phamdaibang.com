@@ -17,7 +17,7 @@ export const Footer: FunctionComponent = () => {
           <Link
             href={`https://folksteam.com${config.baseUrl}`}
           >
-            Blog powered by FOLKS
+            BLOG POWERED BY FOLKS
           </Link>
         </div>
         <div>
@@ -31,7 +31,7 @@ export const Footer: FunctionComponent = () => {
       </div>
       <div className="text-xs text-muted-foreground lg:hidden">
         <Link
-          href={`https://phamdaibang.com/?utm_source=next-js-template&utm_medium=web&utm_campaign=${config.baseUrl}`}
+            href={`https://folksteam.com${config.baseUrl}`}
         >
           Blog powered by Folks
         </Link>
