@@ -33,8 +33,6 @@ export const Footer: FunctionComponent = () => {
         <Link
             href={`https://folksteam.com${config.baseUrl}`}
         >
-          Blog powered by Folks
-        </Link>
       </div>
     </section>
   );
