@@ -35,4 +35,3 @@ export const Footer: FunctionComponent = () => {
     </section>
   );
 };
-```</Link>
