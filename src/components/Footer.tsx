@@ -29,7 +29,10 @@ export const Footer: FunctionComponent = () => {
       </div>
       <div className="text-xs text-muted-foreground lg:hidden">
         <Link href={`https://folksteam.com${config.baseUrl}`}>
+          BLOG POWERED BY FOLKS
+        </Link>
       </div>
     </section>
   );
 };
+```</Link>
