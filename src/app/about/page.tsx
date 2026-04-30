@@ -9,7 +9,7 @@ const content = `# Welcome to the corner of Phạm Đại Bàng.
 ![Phamdaibang](/images/phamdaibang-profile.png)
 In a world filled with constant noise, this blog serves as a quiet retreat for those who appreciate the weight of words and the depth of reflection. Here, I explore life through multiple lenses—from the analytical to the purely imaginative.
 
-Inside, you will find:
+Inside, you will find
 - A Cup of Words & Musings: Light yet lingering thoughts on the everyday.
 - Fiction & Non-Fiction: A blend of sharp real-world observations and creative storytelling.
 - The Breath of Poetry: Where rhythm meets the soul, offering a moment of stillness.
