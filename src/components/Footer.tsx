@@ -14,8 +14,7 @@ export const Footer: FunctionComponent = () => {
           © {config.blog.copyright} {new Date().getFullYear()}
         </div>
         <div className="text-xs text-muted-foreground hidden lg:block">
-          <Link
-            href={`https://folksteam.com`}>
+          <Link href={`https://folksteam.com`}>
             BLOG POWERED BY FOLKS
           </Link>
         </div>
@@ -29,9 +28,7 @@ export const Footer: FunctionComponent = () => {
         </div>
       </div>
       <div className="text-xs text-muted-foreground lg:hidden">
-        <Link
-            href={`https://folksteam.com${config.baseUrl}`}
-        >
+        <Link href={`https://folksteam.com${config.baseUrl}`}>
       </div>
     </section>
   );
