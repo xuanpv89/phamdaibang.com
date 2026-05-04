@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RelatedPosts } from "@/components/RelatedPosts";
 import { config } from "@/config";
-import { hasLocaleTag, isLocale, type Locale } from "@/lib/i18n";
+import { isLocale, isPostInLocale, type Locale } from "@/lib/i18n";
 import { signOgImageUrl } from "@/lib/og-image";
 import { wisp } from "@/lib/wisp";
 import { notFound } from "next/navigation";
@@ -31,7 +31,7 @@ export async function generateMetadata(props: { params: Promise<Params> }) {
   const { slug } = params;
   const result = await wisp.getPost(slug);
 
-  if (!result || !result.post || !hasLocaleTag(result.post.tags, params.lang)) {
+  if (!result || !result.post || !isPostInLocale(result.post.tags, params.lang)) {
     return {
       title: "Blog post not found",
     };
@@ -64,7 +64,7 @@ const Page = async (props: { params: Promise<Params> }) => {
   const result = await wisp.getPost(slug);
   const { posts } = await wisp.getRelatedPosts({ slug, limit: 3 });
 
-  if (!result || !result.post || !hasLocaleTag(result.post.tags, locale)) {
+  if (!result || !result.post || !isPostInLocale(result.post.tags, locale)) {
     return notFound();
   }
 
@@ -97,7 +97,7 @@ const Page = async (props: { params: Promise<Params> }) => {
           <BlogPostContent post={result.post} locale={locale} />
           <RelatedPosts
             posts={posts.filter((post) =>
-              hasLocaleTag((post as PostWithOptionalTags).tags, locale)
+              isPostInLocale((post as PostWithOptionalTags).tags, locale)
             )}
             locale={locale}
           />

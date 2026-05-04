@@ -7,7 +7,7 @@ import {
   dictionary,
   getLocalizedPath,
   isLocale,
-  languageTagNames,
+  isPostInLocale,
   type Locale,
 } from "@/lib/i18n";
 import { wisp } from "@/lib/wisp";
@@ -54,11 +54,7 @@ const Page = async (props: {
     limit: "all",
     tags: [slug],
   });
-  const posts = result.posts.filter((post) =>
-    post.tags.some(
-      (tag) => tag.name.toLowerCase() === languageTagNames[locale]
-    )
-  );
+  const posts = result.posts.filter((post) => isPostInLocale(post.tags, locale));
   const totalPages = Math.max(1, Math.ceil(posts.length / limit));
   const pagePosts = posts.slice((page - 1) * limit, page * limit);
   const pagination = {

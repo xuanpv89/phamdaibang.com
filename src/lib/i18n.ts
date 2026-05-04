@@ -98,6 +98,18 @@ export function hasLocaleTag(
   ) ?? false;
 }
 
+export function hasAnyLocaleTag(tags: { name: string }[] | undefined) {
+  return locales.some((locale) => hasLocaleTag(tags, locale));
+}
+
+export function isPostInLocale(
+  tags: { name: string }[] | undefined,
+  locale: Locale
+) {
+  if (hasLocaleTag(tags, locale)) return true;
+  return locale === defaultLocale && !hasAnyLocaleTag(tags);
+}
+
 export function getLocaleFromTags(tags: { name: string }[] | undefined) {
   return locales.find((locale) => hasLocaleTag(tags, locale)) ?? defaultLocale;
 }
