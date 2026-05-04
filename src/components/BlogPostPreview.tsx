@@ -1,5 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
+import {
+  getLocalizedPath,
+  removeLanguageTags,
+  type Locale,
+} from "@/lib/i18n";
 import { GetPostsResult } from "@/lib/wisp";
 import { formatDate } from "date-fns";
 import Image from "next/image";
@@ -8,10 +13,13 @@ import { FunctionComponent } from "react";
 
 export const BlogPostPreview: FunctionComponent<{
   post: GetPostsResult["posts"][0];
-}> = ({ post }) => {
+  locale: Locale;
+}> = ({ post, locale }) => {
+  const visibleTags = removeLanguageTags(post.tags);
+
   return (
     <div className="break-words">
-      <Link href={`/blog/${post.slug}`}>
+      <Link href={getLocalizedPath(locale, `/blog/${post.slug}`)}>
         <div className="aspect-[16/9] relative">
           <Image
             alt={post.title}
@@ -23,7 +31,9 @@ export const BlogPostPreview: FunctionComponent<{
       </Link>
       <div className="grid grid-cols-1 gap-3 md:col-span-2 mt-4">
         <h2 className="font-sans font-semibold tracking-tighter text-primary text-2xl md:text-3xl">
-          <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+          <Link href={getLocalizedPath(locale, `/blog/${post.slug}`)}>
+            {post.title}
+          </Link>
         </h2>
         <div className="prose lg:prose-lg italic tracking-tighter text-muted-foreground">
           {formatDate(post.publishedAt || post.updatedAt, "dd MMMM yyyy")}
@@ -32,9 +42,11 @@ export const BlogPostPreview: FunctionComponent<{
           {post.description}
         </div>
         <div className="text-sm text-muted-foreground">
-          {post.tags.map((tag) => (
+          {visibleTags.map((tag) => (
             <div key={tag.id} className="mr-2 inline-block">
-              <Link href={`/tag/${tag.name}`}>#{tag.name}</Link>
+              <Link href={getLocalizedPath(locale, `/tag/${tag.name}`)}>
+                #{tag.name}
+              </Link>
             </div>
           ))}
         </div>
@@ -45,8 +57,9 @@ export const BlogPostPreview: FunctionComponent<{
 
 export const BlogPostsPreview: FunctionComponent<{
   posts: GetPostsResult["posts"];
+  locale: Locale;
   className?: string;
-}> = ({ posts, className }) => {
+}> = ({ posts, locale, className }) => {
   return (
     <div
       className={cn(
@@ -55,7 +68,7 @@ export const BlogPostsPreview: FunctionComponent<{
       )}
     >
       {posts.map((post) => (
-        <BlogPostPreview key={post.id} post={post} />
+        <BlogPostPreview key={post.id} post={post} locale={locale} />
       ))}
     </div>
   );

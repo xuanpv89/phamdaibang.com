@@ -70,6 +70,15 @@ cp .env.example .env
 
 Note: You will need to populate the `NEXT_PUBLIC_BLOG_ID` variable with the Blog ID obtained from wisp after you've created an account.
 
+### Language setup
+
+This blog has separate Vietnamese and English sections:
+
+- Vietnamese: `/vi`
+- English: `/en`
+
+In Wisp, add the tag `vi` to Vietnamese posts and `en` to English posts. The language picker, post lists, tag pages, RSS links, and sitemap URLs use those tags to keep the two languages separate.
+
 Finally, run the development server:
 
 ```bash

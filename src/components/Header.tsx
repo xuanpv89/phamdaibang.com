@@ -7,22 +7,30 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { config } from "@/config";
+import { dictionary, getLocalizedPath, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FunctionComponent } from "react";
+import { LanguagePicker } from "./LanguagePicker";
 interface MenuItem {
   name: string;
   href: string;
   openInNewTab?: boolean;
 }
-const menuItems: MenuItem[] = [
-  { name: "Blog", href: "/" },
-  { name: "About Daibang", href: "/about" },
+const buildMenuItems = (locale: Locale): MenuItem[] => [
+  { name: dictionary[locale].nav.blog, href: getLocalizedPath(locale, "/") },
+  {
+    name: dictionary[locale].nav.about,
+    href: getLocalizedPath(locale, "/about"),
+  },
 ];
-export const Navigation: FunctionComponent = () => {
+export const Navigation: FunctionComponent<{ locale: Locale }> = ({
+  locale,
+}) => {
   const pathname = usePathname();
+  const menuItems = buildMenuItems(locale);
 
   return (
     <nav>
@@ -41,6 +49,9 @@ export const Navigation: FunctionComponent = () => {
             </a>
           </div>
         ))}
+        <div className="ml-4 md:ml-8">
+          <LanguagePicker currentLocale={locale} />
+        </div>
       </div>
       <div className="md:hidden">
         <Sheet>
@@ -63,6 +74,9 @@ export const Navigation: FunctionComponent = () => {
                     {item.name}
                   </a>
                 ))}
+                <div className="pt-3">
+                  <LanguagePicker currentLocale={locale} />
+                </div>
               </SheetDescription>
             </SheetHeader>
           </SheetContent>
@@ -72,15 +86,15 @@ export const Navigation: FunctionComponent = () => {
   );
 };
 
-export const Header: FunctionComponent = () => {
+export const Header: FunctionComponent<{ locale: Locale }> = ({ locale }) => {
   return (
     <section className="flex items-center justify-between mt-8 md:mt-16 mb-12">
-      <Link href="/">
+      <Link href={getLocalizedPath(locale, "/")}>
         <h1 className="text-3xl md:text-4.5xl font-bold tracking-tighter leading-tight">
           {config.blog.name}
         </h1>
       </Link>
-      <Navigation />
+      <Navigation locale={locale} />
     </section>
   );
 };

@@ -1,4 +1,9 @@
 "use client";
+import {
+  getLocalizedPath,
+  removeLanguageTags,
+  type Locale,
+} from "@/lib/i18n";
 import { GetPostResult } from "@/lib/wisp";
 import Link from "next/link";
 import sanitize, { defaults } from "sanitize-html";
@@ -52,9 +57,17 @@ export const PostContent = ({ content }: { content: string }) => {
   );
 };
 
-export const BlogPostContent = ({ post }: { post: GetPostResult["post"] }) => {
+export const BlogPostContent = ({
+  post,
+  locale,
+}: {
+  post: GetPostResult["post"];
+  locale: Locale;
+}) => {
   if (!post) return null;
   const { title, publishedAt, createdAt, content, tags } = post;
+  const visibleTags = removeLanguageTags(tags);
+
   return (
     <div>
       <div className="prose lg:prose-xl dark:prose-invert mx-auto lg:prose-h1:text-4xl mb-10 lg:mt-20 break-words">
@@ -62,10 +75,10 @@ export const BlogPostContent = ({ post }: { post: GetPostResult["post"] }) => {
         <PostContent content={content} />
 
         <div className="mt-10 opacity-40 text-sm">
-          {tags.map((tag) => (
+          {visibleTags.map((tag) => (
             <Link
               key={tag.id}
-              href={`/tag/${tag.name}`}
+              href={getLocalizedPath(locale, `/tag/${tag.name}`)}
               className="text-primary mr-2"
             >
               #{tag.name}

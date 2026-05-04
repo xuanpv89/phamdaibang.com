@@ -5,6 +5,7 @@ import RSS from "rss";
 import urlJoin from "url-join";
 import { wisp } from "../../lib/wisp";
 import { config } from "@/config";
+import { getLocaleFromTags } from "@/lib/i18n";
 
 const baseUrl = config.baseUrl;
 
@@ -12,10 +13,12 @@ export async function GET() {
   const result = await wisp.getPosts({ limit: 20 });
 
   const posts = result.posts.map((post) => {
+    const locale = getLocaleFromTags(post.tags);
+
     return {
       title: post.title,
       description: post.description || "",
-      url: urlJoin(baseUrl, `/blog/${post.slug}`),
+      url: urlJoin(baseUrl, `/${locale}/blog/${post.slug}`),
       date: post.publishedAt || new Date(),
     };
   });

@@ -1,6 +1,7 @@
 "use client";
 
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { dictionary, getLocalizedPath, type Locale } from "@/lib/i18n";
 import type { GetRelatedPostsResult } from "@wisp-cms/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +9,8 @@ import type { FunctionComponent } from "react";
 
 export const RelatedPosts: FunctionComponent<{
   posts: GetRelatedPostsResult["posts"];
-}> = ({ posts }) => {
+  locale: Locale;
+}> = ({ posts, locale }) => {
   if (posts.length === 0) {
     return null;
   }
@@ -16,12 +18,12 @@ export const RelatedPosts: FunctionComponent<{
   return (
     <div className="my-8">
       <div className="mb-6 text-lg font-semibold tracking-tight">
-        Related Posts
+        {dictionary[locale].relatedPosts}
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {posts.slice(0, 3).map((post) => (
           <div className=" bg-muted overflow-hidden rounded-lg" key={post.id}>
-            <Link href={`/blog/${post.slug}`}>
+            <Link href={getLocalizedPath(locale, `/blog/${post.slug}`)}>
               <AspectRatio ratio={16 / 9} className="w-full">
                 <Image
                   src={post.image || "/images/placeholder.png"}
@@ -34,8 +36,8 @@ export const RelatedPosts: FunctionComponent<{
             <div className="prose prose-sm dark:prose-invert p-4">
               <h3 className="line-clamp-2">{post.title}</h3>
               <p className="line-clamp-3">{post.description}</p>
-              <Link href={`/blog/${post.slug}`}>
-                <strong>Read Full Story</strong>
+              <Link href={getLocalizedPath(locale, `/blog/${post.slug}`)}>
+                <strong>{dictionary[locale].readFullStory}</strong>
               </Link>
             </div>
           </div>
