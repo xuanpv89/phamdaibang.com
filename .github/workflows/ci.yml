@@ -31,10 +31,10 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          NEXT_PUBLIC_BLOG_ID: ${{ secrets.NEXT_PUBLIC_BLOG_ID }}
+          NEXT_PUBLIC_BLOG_ID: f83ef36b-deed-49dd-b2e8-5225fbf2ac55
           NEXT_PUBLIC_BLOG_DISPLAY_NAME: Pham Dai Bang
           NEXT_PUBLIC_BLOG_COPYRIGHT: Pham Dai Bang
           NEXT_DEFAULT_METADATA_DEFAULT_TITLE: Pham Dai Bang's Writing Corner
           NEXT_PUBLIC_BLOG_DESCRIPTION: A small corner for words, reflection, and everyday observation.
-          NEXT_PUBLIC_BASE_URL: https://blog.phamdaibang.com
-          OG_IMAGE_SECRET: ${{ secrets.OG_IMAGE_SECRET }}
+          NEXT_PUBLIC_BASE_URL: https://phamdaibang.com
+          OG_IMAGE_SECRET: ci-only-og-image-secret
