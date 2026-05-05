@@ -12,17 +12,6 @@ const nextConfig = {
   redirects: async () => {
     return [
       {
-        source: "/:path*",
-        has: [
-          {
-            type: "host",
-            value: "blog.phamdaibang.com",
-          },
-        ],
-        destination: "https://phamdaibang.com/:path*",
-        permanent: true,
-      },
-      {
         source: "/",
         destination: "/vi",
         permanent: false,
