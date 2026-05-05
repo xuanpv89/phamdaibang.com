@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BLOG_ID: ${{ secrets.NEXT_PUBLIC_BLOG_ID }}
+          NEXT_PUBLIC_BLOG_DISPLAY_NAME: Pham Dai Bang
+          NEXT_PUBLIC_BLOG_COPYRIGHT: Pham Dai Bang
+          NEXT_DEFAULT_METADATA_DEFAULT_TITLE: Pham Dai Bang's Writing Corner
+          NEXT_PUBLIC_BLOG_DESCRIPTION: A small corner for words, reflection, and everyday observation.
+          NEXT_PUBLIC_BASE_URL: https://blog.phamdaibang.com
+          OG_IMAGE_SECRET: ${{ secrets.OG_IMAGE_SECRET }}

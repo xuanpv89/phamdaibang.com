@@ -21,11 +21,15 @@ export const DarkModeToggle = () => {
 
   // Once the component has mounted, we can safely render
   return (
-    <Button variant="ghost" onClick={toggleDarkMode} className="p-2">
+    <Button
+      variant="ghost"
+      onClick={toggleDarkMode}
+      className="p-2 transition duration-300 hover:-translate-y-0.5"
+    >
       {resolvedTheme === "dark" ? (
-        <Moon className="w-4 h-4" />
+        <Moon className="w-4 h-4 transition-transform duration-500" />
       ) : (
-        <Sun className="w-4 h-4" />
+        <Sun className="w-4 h-4 transition-transform duration-500 hover:rotate-45" />
       )}
     </Button>
   );

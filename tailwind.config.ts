@@ -60,6 +60,53 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        title: {
+          "0%": {
+            "line-height": "0%",
+            "letter-spacing": "0.25em",
+            opacity: "0",
+          },
+          "25%": {
+            "line-height": "0%",
+            opacity: "0%",
+          },
+          "80%": { opacity: "100%" },
+          "100%": {
+            "line-height": "100%",
+            opacity: "100%",
+          },
+        },
+        "fade-left": {
+          "0%": { transform: "translateX(100%)", opacity: "0%" },
+          "30%": { transform: "translateX(0%)", opacity: "100%" },
+          "100%": { opacity: "0%" },
+        },
+        "fade-right": {
+          "0%": { transform: "translateX(-100%)", opacity: "0%" },
+          "30%": { transform: "translateX(0%)", opacity: "100%" },
+          "100%": { opacity: "0%" },
+        },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(18px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.98)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "image-drift": {
+          "0%": { transform: "scale(1.04) translate3d(0, 0, 0)" },
+          "50%": { transform: "scale(1.08) translate3d(-1.5%, -1%, 0)" },
+          "100%": { transform: "scale(1.04) translate3d(0, 0, 0)" },
+        },
+        "border-sweep": {
+          "0%": { transform: "translateX(-110%)" },
+          "100%": { transform: "translateX(110%)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -70,11 +117,24 @@ const config = {
         },
       },
       animation: {
+        title: "title 3s ease-out forwards",
+        "fade-left": "fade-left 3s ease-in-out forwards",
+        "fade-right": "fade-right 3s ease-in-out forwards",
+        "fade-up": "fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "fade-in": "fade-in 0.6s ease-out both",
+        "scale-in": "scale-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "image-drift": "image-drift 12s ease-in-out infinite",
+        "border-sweep": "border-sweep 1.1s ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        display: ["var(--font-calsans)"],
+      },
+      backgroundImage: {
+        "gradient-radial":
+          "radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },

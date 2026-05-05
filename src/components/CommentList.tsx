@@ -2,6 +2,7 @@
 
 import { format } from "date-fns";
 import Link from "next/link";
+import { dictionary, type Locale } from "@/lib/i18n";
 
 interface CommentListProps {
   comments: {
@@ -30,17 +31,25 @@ interface CommentListProps {
     allowNested: boolean;
   };
   isLoading?: boolean;
+  locale: Locale;
 }
 
-export function CommentList({ comments, config, isLoading }: CommentListProps) {
+export function CommentList({
+  comments,
+  config,
+  isLoading,
+  locale,
+}: CommentListProps) {
+  const text = dictionary[locale];
+
   if (isLoading) {
-    return <div className="animate-pulse">Loading comments...</div>;
+    return <div className="animate-pulse">{text.loading}</div>;
   }
 
   if (comments.length === 0) {
     return (
       <div className="text-muted-foreground mt-8 text-center">
-        No comments yet. Be the first to comment!
+        {text.noComments}
       </div>
     );
   }

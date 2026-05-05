@@ -1,12 +1,15 @@
 {
-  "name": "geek-wisp",
+  "name": "blog-phamdaibang-com",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "import:tumblr": "node scripts/import-tumblr-to-wisp.mjs",
+    "publish:tumblr": "node scripts/publish-tumblr-drafts.mjs",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

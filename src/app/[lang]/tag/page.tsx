@@ -1,9 +1,9 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { config } from "@/config";
+import { getBlogTagPath } from "@/lib/blog-paths";
 import {
   dictionary,
-  getLocalizedPath,
   isLocale,
   removeLanguageTags,
   type Locale,
@@ -16,6 +16,8 @@ import Link from "next/link";
 interface Params {
   lang: string;
 }
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(props: { params: Promise<Params> }) {
   const params = await props.params;
@@ -31,9 +33,17 @@ export async function generateMetadata(props: { params: Promise<Params> }) {
   return {
     title: dictionary[locale].tagsTitle,
     description: dictionary[locale].tagsDescription,
+    alternates: {
+      canonical: `/${locale}/tag`,
+      languages: {
+        vi: "/vi/tag",
+        en: "/en/tag",
+      },
+    },
     openGraph: {
       title: dictionary[locale].tagsTitle,
       description: dictionary[locale].tagsDescription,
+      url: `/${locale}/tag`,
       images: [
         signOgImageUrl({
           title: dictionary[locale].tagsTitle,
@@ -70,7 +80,7 @@ export default async function Page(props: { params: Promise<Params> }) {
         {tags.map((tag) => (
           <Link
             key={tag.id}
-            href={getLocalizedPath(locale, `/tag/${tag.name}`)}
+            href={getBlogTagPath(locale, tag.name)}
             className="text-primary mr-2 inline-block"
           >
             #{tag.name}

@@ -3,13 +3,18 @@ import { BlogPostsPagination } from "@/components/BlogPostsPagination";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Badge } from "@/components/ui/badge";
+import { getBlogIndexPath } from "@/lib/blog-paths";
 import {
   dictionary,
-  getLocalizedPath,
   isLocale,
   isPostInLocale,
   type Locale,
 } from "@/lib/i18n";
+import {
+  hasVietnamesePostContent,
+  localizePosts,
+} from "@/lib/localized-posts";
+import { paginate, parsePositivePage } from "@/lib/pagination";
 import { wisp } from "@/lib/wisp";
 import { CircleX } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -19,6 +24,8 @@ interface Params {
   lang: string;
   slug: string;
 }
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(props: { params: Promise<Params> }) {
   const params = await props.params;
@@ -32,6 +39,18 @@ export async function generateMetadata(props: { params: Promise<Params> }) {
   return {
     title: `#${params.slug}`,
     description: `${dictionary[params.lang].taggedWith} #${params.slug}`,
+    alternates: {
+      canonical: `/${params.lang}/tag/${params.slug}`,
+      languages: {
+        vi: `/vi/tag/${params.slug}`,
+        en: `/en/tag/${params.slug}`,
+      },
+    },
+    openGraph: {
+      title: `#${params.slug}`,
+      description: `${dictionary[params.lang].taggedWith} #${params.slug}`,
+      url: `/${params.lang}/tag/${params.slug}`,
+    },
   };
 }
 
@@ -49,26 +68,25 @@ const Page = async (props: {
   const locale: Locale = params.lang;
   const { slug } = params;
   const limit = 6;
-  const page = searchParams.page ? parseInt(searchParams.page as string) : 1;
+  const page = parsePositivePage(searchParams.page);
   const result = await wisp.getPosts({
     limit: "all",
     tags: [slug],
   });
-  const posts = result.posts.filter((post) => isPostInLocale(post.tags, locale));
-  const totalPages = Math.max(1, Math.ceil(posts.length / limit));
-  const pagePosts = posts.slice((page - 1) * limit, page * limit);
-  const pagination = {
-    page,
-    limit,
-    totalPages,
-    nextPage: page < totalPages ? page + 1 : null,
-    prevPage: page > 1 ? page - 1 : null,
-  };
+  const posts = localizePosts(
+    result.posts.filter(
+      (post) =>
+        isPostInLocale(post.tags, locale) ||
+        (locale === "vi" && hasVietnamesePostContent(post.slug))
+    ),
+    locale
+  );
+  const { items: pagePosts, pagination } = paginate(posts, page, limit);
 
   return (
     <div className="container mx-auto px-5 mb-10">
       <Header locale={locale} />
-      <Link href={getLocalizedPath(locale, "/")}>
+      <Link href={getBlogIndexPath(locale)}>
         <Badge className="px-2 py-1">
           <CircleX className="inline-block w-4 h-4 mr-2" />
           {dictionary[locale].taggedWith}{" "}
@@ -78,7 +96,7 @@ const Page = async (props: {
       <BlogPostsPreview posts={pagePosts} locale={locale} />
       <BlogPostsPagination
         pagination={pagination}
-        basePath={`/${locale}/tag/${slug}/?page=`}
+        basePath={`/${locale}/tag/${slug}?page=`}
       />
       <Footer />
     </div>

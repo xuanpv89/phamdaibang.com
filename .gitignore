@@ -19,6 +19,7 @@
 # misc
 .DS_Store
 *.pem
+.imports/tumblr-export/media/662734176491126784_4.mp4
 
 # debug
 npm-debug.log*

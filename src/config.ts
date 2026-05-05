@@ -12,7 +12,9 @@ const buildConfig = () => {
     "Pham Dai Bang's Writing Corner";
 
   return {
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
+    baseUrl: (
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    ).replace(/\/$/, ""),
     blog: {
       name,
       copyright,

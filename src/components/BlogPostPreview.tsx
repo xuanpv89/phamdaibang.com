@@ -1,12 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
-import {
-  getLocalizedPath,
-  removeLanguageTags,
-  type Locale,
-} from "@/lib/i18n";
+import { getBlogPostPath, getBlogTagPath } from "@/lib/blog-paths";
+import { removeLanguageTags, type Locale } from "@/lib/i18n";
 import { GetPostsResult } from "@/lib/wisp";
 import { formatDate } from "date-fns";
+import { enUS, vi as viLocale } from "date-fns/locale";
 import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent } from "react";
@@ -14,16 +12,24 @@ import { FunctionComponent } from "react";
 export const BlogPostPreview: FunctionComponent<{
   post: GetPostsResult["posts"][0];
   locale: Locale;
-}> = ({ post, locale }) => {
+  index?: number;
+}> = ({ post, locale, index = 0 }) => {
   const visibleTags = removeLanguageTags(post.tags);
+  const dateLocale = locale === "vi" ? viLocale : enUS;
 
   return (
-    <div className="break-words">
-      <Link href={getLocalizedPath(locale, `/blog/${post.slug}`)}>
-        <div className="aspect-[16/9] relative">
+    <article
+      className="story-card group break-words motion-safe:animate-fade-up"
+      style={{ animationDelay: `${Math.min(index, 5) * 90}ms` }}
+    >
+      <Link
+        href={getBlogPostPath(locale, post.slug)}
+        className="block"
+      >
+        <div className="aspect-[16/9] relative overflow-hidden rounded-lg bg-muted shadow-sm transition duration-500 group-hover:-translate-y-1 group-hover:shadow-xl">
           <Image
             alt={post.title}
-            className="object-cover"
+            className="object-cover motion-safe:animate-image-drift motion-safe-pause transition duration-700 group-hover:scale-110"
             src={post.image || "/images/placeholder.webp"}
             fill
           />
@@ -31,12 +37,17 @@ export const BlogPostPreview: FunctionComponent<{
       </Link>
       <div className="grid grid-cols-1 gap-3 md:col-span-2 mt-4">
         <h2 className="font-sans font-semibold tracking-tighter text-primary text-2xl md:text-3xl">
-          <Link href={getLocalizedPath(locale, `/blog/${post.slug}`)}>
+          <Link
+            href={getBlogPostPath(locale, post.slug)}
+            className="animated-link transition-colors duration-300 hover:text-muted-foreground"
+          >
             {post.title}
           </Link>
         </h2>
         <div className="prose lg:prose-lg italic tracking-tighter text-muted-foreground">
-          {formatDate(post.publishedAt || post.updatedAt, "dd MMMM yyyy")}
+          {formatDate(post.publishedAt || post.updatedAt, "dd MMMM yyyy", {
+            locale: dateLocale,
+          })}
         </div>
         <div className="prose lg:prose-lg leading-relaxed md:text-lg line-clamp-4 text-muted-foreground">
           {post.description}
@@ -44,14 +55,17 @@ export const BlogPostPreview: FunctionComponent<{
         <div className="text-sm text-muted-foreground">
           {visibleTags.map((tag) => (
             <div key={tag.id} className="mr-2 inline-block">
-              <Link href={getLocalizedPath(locale, `/tag/${tag.name}`)}>
+              <Link
+                href={getBlogTagPath(locale, tag.name)}
+                className="inline-flex rounded-full px-2 py-1 transition duration-300 hover:-translate-y-0.5 hover:bg-muted hover:text-foreground"
+              >
                 #{tag.name}
               </Link>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -67,8 +81,13 @@ export const BlogPostsPreview: FunctionComponent<{
         className
       )}
     >
-      {posts.map((post) => (
-        <BlogPostPreview key={post.id} post={post} locale={locale} />
+      {posts.map((post, index) => (
+        <BlogPostPreview
+          key={post.id}
+          post={post}
+          locale={locale}
+          index={index}
+        />
       ))}
     </div>
   );

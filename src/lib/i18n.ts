@@ -28,11 +28,36 @@ export const dictionary = {
     taggedWith: "Bài viết có tag",
     relatedPosts: "Bài viết liên quan",
     readFullStory: "Đọc bài viết",
+    loading: "Đang tải...",
+    commentsTitle: "Bình luận",
+    addCommentTitle: "Thêm bình luận",
+    noComments: "Chưa có bình luận. Hãy là người đầu tiên bình luận.",
+    commentPendingTitle: "Đang chờ xác minh email",
+    commentPendingDescription:
+      "Cảm ơn bạn đã bình luận. Vui lòng kiểm tra email để xác minh và đăng bình luận. Nếu không thấy email trong hộp thư đến, hãy kiểm tra thư rác.",
+    commentErrorTitle: "Lỗi",
+    commentSubmit: "Gửi bình luận",
+    commentFields: {
+      name: "Tên",
+      namePlaceholder: "Tên của bạn",
+      email: "Email",
+      emailPlaceholder: "ban@example.com",
+      website: "Website (không bắt buộc)",
+      websitePlaceholder: "https://example.com",
+      comment: "Bình luận",
+      commentPlaceholder: "Chia sẻ suy nghĩ của bạn...",
+    },
+    commentValidation: {
+      nameRequired: "Vui lòng nhập tên",
+      invalidEmail: "Email không hợp lệ",
+      invalidUrl: "URL không hợp lệ",
+      contentRequired: "Vui lòng nhập nội dung bình luận",
+    },
     aboutTitle: "Về Đại Bàng",
     aboutDescription: "Một góc nhỏ cho chữ nghĩa, suy tư và quan sát đời sống.",
     aboutContent: `# Chào mừng đến với góc viết của Phạm Đại Bàng.
 
-![Phamdaibang](/images/phamdaibang-circle2026.png)
+![Phamdaibang](/images/phamdaibang-circle2026.webp)
 
 Giữa một thế giới đầy tiếng ồn, blog này là một khoảng lặng cho những ai yêu sức nặng của chữ nghĩa và chiều sâu của suy tư. Ở đây, tôi nhìn đời sống qua nhiều lăng kính, từ phân tích, quan sát cho đến tưởng tượng.
 
@@ -57,11 +82,36 @@ Mời bạn cùng đi trong hành trình chiêm nghiệm này, nơi mỗi bài v
     taggedWith: "Posts tagged with",
     relatedPosts: "Related Posts",
     readFullStory: "Read Full Story",
+    loading: "Loading...",
+    commentsTitle: "Comments",
+    addCommentTitle: "Add comment",
+    noComments: "No comments yet. Be the first to comment.",
+    commentPendingTitle: "Pending email verification",
+    commentPendingDescription:
+      "Thanks for your comment. Please check your email to verify your email and post your comment. If you do not see it in your inbox, please check your spam folder.",
+    commentErrorTitle: "Error",
+    commentSubmit: "Post comment",
+    commentFields: {
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Email",
+      emailPlaceholder: "you@example.com",
+      website: "Website (optional)",
+      websitePlaceholder: "https://example.com",
+      comment: "Comment",
+      commentPlaceholder: "Share your thoughts...",
+    },
+    commentValidation: {
+      nameRequired: "Name is required",
+      invalidEmail: "Invalid email address",
+      invalidUrl: "Please enter a valid URL",
+      contentRequired: "Comment cannot be empty",
+    },
     aboutTitle: "About Daibang",
     aboutDescription: "A small corner for words, reflection, and everyday observation.",
     aboutContent: `# Welcome to Pham Dai Bang's writing corner.
 
-![Phamdaibang](/images/phamdaibang-circle2026.png)
+![Phamdaibang](/images/phamdaibang-circle2026.webp)
 
 In a world filled with constant noise, this blog is a quiet retreat for those who appreciate the weight of words and the depth of reflection. Here, I explore life through multiple lenses, from the analytical to the purely imaginative.
 
@@ -93,9 +143,10 @@ export function hasLocaleTag(
   tags: { name: string }[] | undefined,
   locale: Locale
 ) {
-  return tags?.some(
-    (tag) => tag.name.toLowerCase() === languageTagNames[locale]
-  ) ?? false;
+  return (
+    tags?.some((tag) => tag.name.toLowerCase() === languageTagNames[locale]) ??
+    false
+  );
 }
 
 export function hasAnyLocaleTag(tags: { name: string }[] | undefined) {

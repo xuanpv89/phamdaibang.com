@@ -21,16 +21,21 @@ import { Shield } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { wisp } from "@/lib/wisp";
+import { dictionary, type Locale } from "@/lib/i18n";
 
-const formSchema = z.object({
-  author: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  url: z
-    .union([z.string().url("Please enter a valid URL"), z.string().max(0)])
-    .optional(),
-  content: z.string().min(1, "Comment cannot be empty"),
-  allowEmailUsage: z.boolean(),
-});
+const buildFormSchema = (locale: Locale) => {
+  const validation = dictionary[locale].commentValidation;
+
+  return z.object({
+    author: z.string().min(1, validation.nameRequired),
+    email: z.string().email(validation.invalidEmail),
+    url: z
+      .union([z.string().url(validation.invalidUrl), z.string().max(0)])
+      .optional(),
+    content: z.string().min(1, validation.contentRequired),
+    allowEmailUsage: z.boolean(),
+  });
+};
 
 interface CommentFormProps {
   slug: string;
@@ -41,6 +46,7 @@ interface CommentFormProps {
     signUpMessage: string | null;
   };
   parentId?: string;
+  locale: Locale;
   onSuccess?: () => void;
 }
 
@@ -60,7 +66,14 @@ interface CreateCommentRequest {
   parentId?: string;
 }
 
-export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
+export function CommentForm({
+  slug,
+  config,
+  locale,
+  onSuccess,
+}: CommentFormProps) {
+  const text = dictionary[locale];
+  const formSchema = buildFormSchema(locale);
   const { toast } = useToast();
   const { mutateAsync: createComment, data } = useMutation({
     mutationFn: async (input: CreateCommentRequest) => {
@@ -102,7 +115,7 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
     } catch (e) {
       if (e instanceof Error) {
         toast({
-          title: "Error",
+          title: text.commentErrorTitle,
           description: e.message,
           variant: "destructive",
         });
@@ -115,11 +128,9 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
       <Alert className="bg-muted border-none">
         <AlertDescription className="space-y-2 text-center">
           <Shield className="text-muted-foreground mx-auto h-10 w-10" />
-          <div className="font-medium">Pending email verification</div>
+          <div className="font-medium">{text.commentPendingTitle}</div>
           <div className="text-muted-foreground m-auto max-w-lg text-balance text-sm">
-            Thanks for your comment! Please check your email to verify your
-            email and post your comment. If you don&apos;t see it in your inbox,
-            please check your spam folder.
+            {text.commentPendingDescription}
           </div>
         </AlertDescription>
       </Alert>
@@ -135,10 +146,10 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
             name="author"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>{text.commentFields.name}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Your name"
+                    placeholder={text.commentFields.namePlaceholder}
                     {...field}
                     className="focus-visible:ring-inset"
                   />
@@ -152,11 +163,11 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{text.commentFields.email}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="you@example.com"
+                    placeholder={text.commentFields.emailPlaceholder}
                     className="focus-visible:ring-inset"
                     {...field}
                   />
@@ -173,11 +184,11 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Website (optional)</FormLabel>
+                <FormLabel>{text.commentFields.website}</FormLabel>
                 <FormControl>
                   <Input
                     type="url"
-                    placeholder="https://example.com"
+                    placeholder={text.commentFields.websitePlaceholder}
                     className="focus-visible:ring-inset"
                     {...field}
                   />
@@ -193,10 +204,10 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comment</FormLabel>
+              <FormLabel>{text.commentFields.comment}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Share your thoughts..."
+                  placeholder={text.commentFields.commentPlaceholder}
                   className="min-h-[120px] resize-y focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-offset-0"
                   {...field}
                 />
@@ -230,7 +241,7 @@ export function CommentForm({ slug, config, onSuccess }: CommentFormProps) {
 
         <div className="flex items-center justify-between pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>
-            Post Comment
+            {text.commentSubmit}
           </Button>
         </div>
       </form>

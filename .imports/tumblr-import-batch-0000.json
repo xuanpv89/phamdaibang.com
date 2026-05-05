@@ -1,0 +1,40 @@
+{
+  "sourceDir": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export",
+  "postsDir": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export\\Posts",
+  "dryRun": false,
+  "publish": false,
+  "totalFound": 770,
+  "totalSelected": 5,
+  "results": [
+    {
+      "status": "created",
+      "file": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export\\Posts\\html\\146558836317.html",
+      "slug": "minh-la-ai-song-de-lam-gi-146558836317",
+      "id": "cmor41ffs00016lb0wn6ygese"
+    },
+    {
+      "status": "created",
+      "file": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export\\Posts\\html\\146838063962.html",
+      "slug": "ve-david-s-entry-estas-tonne-146838063962",
+      "id": "cmor41hgi00056lb0upnu3491"
+    },
+    {
+      "status": "created",
+      "file": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export\\Posts\\html\\186566167872.html",
+      "slug": "ru-186566167872",
+      "id": "cmor41id200096lb0u9mni0in"
+    },
+    {
+      "status": "created",
+      "file": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export\\Posts\\html\\186566184832.html",
+      "slug": "khong-phai-chi-vi-nguc-em-186566184832",
+      "id": "cmor41j9d000d6lb0hhw77w47"
+    },
+    {
+      "status": "created",
+      "file": "C:\\Users\\PC\\Documents\\New project\\blog.phamdaibang.com-main\\.imports\\tumblr-export\\Posts\\html\\186566201237.html",
+      "slug": "roi-ho-se-di-ve-dau-186566201237",
+      "id": "cmor41kok0001q9ppk7jzdqxn"
+    }
+  ]
+}

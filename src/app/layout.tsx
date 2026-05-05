@@ -3,24 +3,44 @@ import { signOgImageUrl } from "@/lib/og-image";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "./providers";
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const fontDisplay = localFont({
+  src: "../../public/fonts/CalSans-SemiBold.ttf",
+  variable: "--font-calsans",
+});
 
 export const metadata: Metadata = {
+  metadataBase: new URL(config.baseUrl),
   title: {
-    absolute: config.blog.metadata.title.absolute,
-    default: config.blog.metadata.title.default,
-    template: config.blog.metadata.title.template,
+    default: "Pham Dai Bang",
+    template: "%s | phamdaibang.com",
   },
-  description: config.blog.metadata.description,
+  description:
+    "Trang cá nhân của Phạm Đại Bàng: bài viết, công việc, portfolio và thông tin liên hệ.",
+  alternates: {
+    canonical: "/",
+    languages: {
+      vi: "/vi",
+      en: "/en",
+    },
+    types: {
+      "application/rss+xml": "/rss",
+    },
+  },
   openGraph: {
-    title: config.blog.metadata.title.default,
-    description: config.blog.metadata.description,
+    type: "website",
+    url: config.baseUrl,
+    siteName: "phamdaibang.com",
+    title: "Pham Dai Bang",
+    description:
+      "Trang cá nhân của Phạm Đại Bàng: bài viết, công việc, portfolio và thông tin liên hệ.",
     images: [
       signOgImageUrl({
-        title: config.blog.name,
+        title: "Pham Dai Bang",
       }),
     ],
   },
@@ -32,11 +52,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="vi" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-6xl m-auto",
-          fontSans.variable
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+          fontDisplay.variable
         )}
       >
         <Providers>
