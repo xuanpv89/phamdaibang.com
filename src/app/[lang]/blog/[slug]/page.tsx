@@ -11,6 +11,7 @@ import {
   localizePosts,
 } from "@/lib/localized-posts";
 import { signOgImageUrl } from "@/lib/og-image";
+import { getAlternatePostPaths } from "@/lib/post-translations";
 import { wisp } from "@/lib/wisp";
 import { notFound } from "next/navigation";
 import type { BlogPosting, WithContext } from "schema-dts";
@@ -28,15 +29,30 @@ export const dynamic = "force-dynamic";
 
 async function getLocalePostSummary(slug: string, locale: Locale) {
   const result = await wisp.getPosts({ limit: "all" });
-  const post = result.posts.find((post) => post.slug === slug);
+  const post = result.posts.find((post) => {
+    if (post.slug !== slug) return false;
 
-  if (!post) return null;
+    return (
+      isPostInLocale(post.tags, locale) ||
+      (locale === "vi" && hasVietnamesePostContent(post.slug))
+    );
+  });
 
-  const isVisibleInLocale =
-    isPostInLocale(post.tags, locale) ||
-    (locale === "vi" && hasVietnamesePostContent(post.slug));
+  return post ?? null;
+}
 
-  return isVisibleInLocale ? post : null;
+async function getPostAlternatePaths(slug: string, locale: Locale) {
+  const result = await wisp.getPosts({ limit: "all" });
+  const post = result.posts.find(
+    (post) =>
+      post.slug === slug &&
+      (isPostInLocale(post.tags, locale) ||
+        (locale === "vi" && hasVietnamesePostContent(post.slug)))
+  );
+
+  if (!post) return undefined;
+
+  return getAlternatePostPaths(post, result.posts);
 }
 
 export async function generateMetadata(props: { params: Promise<Params> }) {
@@ -69,16 +85,14 @@ export async function generateMetadata(props: { params: Promise<Params> }) {
   const post = localizePost(result.post, locale);
   const { title, description, image } = post;
   const generatedOgImage = signOgImageUrl({ title, brand: config.blog.name });
+  const alternatePaths = await getPostAlternatePaths(slug, locale);
 
   return {
     title,
     description,
     alternates: {
       canonical: `/${params.lang}/blog/${slug}`,
-      languages: {
-        vi: `/vi/blog/${slug}`,
-        en: `/en/blog/${slug}`,
-      },
+      languages: alternatePaths,
     },
     openGraph: {
       title,
@@ -107,6 +121,7 @@ const Page = async (props: { params: Promise<Params> }) => {
 
   const result = await wisp.getPost(slug);
   const { posts } = await wisp.getRelatedPosts({ slug, limit: 3 });
+  const allPosts = await wisp.getPosts({ limit: "all" });
 
   if (!result || !result.post) {
     return notFound();
@@ -114,6 +129,7 @@ const Page = async (props: { params: Promise<Params> }) => {
 
   const post = localizePost(result.post, locale);
   const { title, publishedAt, updatedAt, image, author } = post;
+  const alternatePaths = getAlternatePostPaths(localePost, allPosts.posts);
 
   const jsonLd: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
@@ -137,7 +153,7 @@ const Page = async (props: { params: Promise<Params> }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container mx-auto px-5">
-        <Header locale={locale} />
+        <Header locale={locale} alternatePaths={alternatePaths} />
         <div className="max-w-prose mx-auto text-xl">
           <BlogPostContent post={post} locale={locale} />
           <RelatedPosts

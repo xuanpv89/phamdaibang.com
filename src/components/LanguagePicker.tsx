@@ -1,6 +1,7 @@
 "use client";
 
 import { localeLabels, locales, type Locale } from "@/lib/i18n";
+import type { AlternatePostPaths } from "@/lib/post-translations";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,7 +17,13 @@ function localizedCurrentPath(pathname: string, locale: Locale) {
   return `/${locale}${pathname === "/" ? "" : pathname}`;
 }
 
-export function LanguagePicker({ currentLocale }: { currentLocale: Locale }) {
+export function LanguagePicker({
+  currentLocale,
+  alternatePaths,
+}: {
+  currentLocale: Locale;
+  alternatePaths?: AlternatePostPaths;
+}) {
   const pathname = usePathname();
 
   return (
@@ -26,7 +33,8 @@ export function LanguagePicker({ currentLocale }: { currentLocale: Locale }) {
     >
       {locales.map((locale) => {
         const active = locale === currentLocale;
-        const href = localizedCurrentPath(pathname, locale);
+        const href =
+          alternatePaths?.[locale] ?? localizedCurrentPath(pathname, locale);
 
         return (
           <Link

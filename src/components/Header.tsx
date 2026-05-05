@@ -9,6 +9,7 @@ import {
 import { config } from "@/config";
 import { getBlogIndexPath } from "@/lib/blog-paths";
 import { dictionary, getLocalizedPath, type Locale } from "@/lib/i18n";
+import type { AlternatePostPaths } from "@/lib/post-translations";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import Link from "next/link";
@@ -27,9 +28,10 @@ const buildMenuItems = (locale: Locale): MenuItem[] => [
     href: getLocalizedPath(locale, "/about"),
   },
 ];
-export const Navigation: FunctionComponent<{ locale: Locale }> = ({
-  locale,
-}) => {
+export const Navigation: FunctionComponent<{
+  locale: Locale;
+  alternatePaths?: AlternatePostPaths;
+}> = ({ locale, alternatePaths }) => {
   const pathname = usePathname();
   const menuItems = buildMenuItems(locale);
 
@@ -51,7 +53,10 @@ export const Navigation: FunctionComponent<{ locale: Locale }> = ({
           </div>
         ))}
         <div className="ml-4 md:ml-8">
-          <LanguagePicker currentLocale={locale} />
+          <LanguagePicker
+            currentLocale={locale}
+            alternatePaths={alternatePaths}
+          />
         </div>
       </div>
       <div className="md:hidden">
@@ -76,7 +81,10 @@ export const Navigation: FunctionComponent<{ locale: Locale }> = ({
                   </a>
                 ))}
                 <div className="pt-3">
-                  <LanguagePicker currentLocale={locale} />
+                  <LanguagePicker
+                    currentLocale={locale}
+                    alternatePaths={alternatePaths}
+                  />
                 </div>
               </SheetDescription>
             </SheetHeader>
@@ -87,7 +95,10 @@ export const Navigation: FunctionComponent<{ locale: Locale }> = ({
   );
 };
 
-export const Header: FunctionComponent<{ locale: Locale }> = ({ locale }) => {
+export const Header: FunctionComponent<{
+  locale: Locale;
+  alternatePaths?: AlternatePostPaths;
+}> = ({ locale, alternatePaths }) => {
   return (
     <section className="flex items-center justify-between mt-8 md:mt-16 mb-12 motion-safe:animate-fade-up">
       <Link href={getBlogIndexPath(locale)} className="group">
@@ -95,7 +106,7 @@ export const Header: FunctionComponent<{ locale: Locale }> = ({ locale }) => {
           {config.blog.name}
         </h1>
       </Link>
-      <Navigation locale={locale} />
+      <Navigation locale={locale} alternatePaths={alternatePaths} />
     </section>
   );
 };
