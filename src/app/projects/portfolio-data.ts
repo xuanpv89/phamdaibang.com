@@ -314,7 +314,7 @@ export const portfolioProjects: Record<Language, PortfolioProject[]> = {
 			scope: [
 				"Personal essay, short fiction, poetry, observation, notes, and writing experiments.",
 				"Editorial positioning for a reflective, quiet, word-centered blog experience.",
-				"Blog design and public presence through the blog.phamdaibang.com repository.",
+				"Blog design and public presence through the main phamdaibang.com website.",
 			],
 			results: [
 				"Created a dedicated writing corner under the Pham Dai Bang identity.",
@@ -625,7 +625,7 @@ export const portfolioProjects: Record<Language, PortfolioProject[]> = {
 			scope: [
 				"Personal essay, short fiction, poetry, observation, notes và writing experiments.",
 				"Định vị editorial cho một trải nghiệm blog tĩnh, phản tư và tập trung vào chữ.",
-				"Thiết kế blog và public presence qua repo blog.phamdaibang.com.",
+				"Thiết kế blog và public presence trong website chính phamdaibang.com.",
 			],
 			results: [
 				"Tạo một writing corner riêng dưới nhận diện Phạm Đại Bàng.",
