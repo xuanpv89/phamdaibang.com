@@ -12,7 +12,11 @@ const buildConfig = () => {
     "Pham Dai Bang's Writing Corner";
   const ogImageSecret = process.env.OG_IMAGE_SECRET;
 
-  if (!ogImageSecret && process.env.NODE_ENV === "production") {
+  if (
+    !ogImageSecret &&
+    process.env.NODE_ENV === "production" &&
+    typeof window === "undefined"
+  ) {
     throw new Error("OG_IMAGE_SECRET is missing");
   }
 
