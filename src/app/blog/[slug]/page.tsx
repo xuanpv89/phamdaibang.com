@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { BlogLanguageRedirect } from "@/components/BlogLanguageRedirect";
 
 interface Params {
   slug: string;
@@ -6,5 +6,6 @@ interface Params {
 
 export default async function Page(props: { params: Promise<Params> }) {
   const params = await props.params;
-  redirect(`/vi/blog/${params.slug}`);
+
+  return <BlogLanguageRedirect slug={params.slug} />;
 }

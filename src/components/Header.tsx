@@ -9,13 +9,11 @@ import {
 import { config } from "@/config";
 import { getBlogIndexPath } from "@/lib/blog-paths";
 import { dictionary, getLocalizedPath, type Locale } from "@/lib/i18n";
-import type { AlternatePostPaths } from "@/lib/post-translations";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FunctionComponent } from "react";
-import { LanguagePicker } from "./LanguagePicker";
 interface MenuItem {
   name: string;
   href: string;
@@ -30,8 +28,7 @@ const buildMenuItems = (locale: Locale): MenuItem[] => [
 ];
 export const Navigation: FunctionComponent<{
   locale: Locale;
-  alternatePaths?: AlternatePostPaths;
-}> = ({ locale, alternatePaths }) => {
+}> = ({ locale }) => {
   const pathname = usePathname();
   const menuItems = buildMenuItems(locale);
 
@@ -52,12 +49,6 @@ export const Navigation: FunctionComponent<{
             </a>
           </div>
         ))}
-        <div className="ml-4 md:ml-8">
-          <LanguagePicker
-            currentLocale={locale}
-            alternatePaths={alternatePaths}
-          />
-        </div>
       </div>
       <div className="md:hidden">
         <Sheet>
@@ -80,12 +71,6 @@ export const Navigation: FunctionComponent<{
                     {item.name}
                   </a>
                 ))}
-                <div className="pt-3">
-                  <LanguagePicker
-                    currentLocale={locale}
-                    alternatePaths={alternatePaths}
-                  />
-                </div>
               </SheetDescription>
             </SheetHeader>
           </SheetContent>
@@ -97,8 +82,7 @@ export const Navigation: FunctionComponent<{
 
 export const Header: FunctionComponent<{
   locale: Locale;
-  alternatePaths?: AlternatePostPaths;
-}> = ({ locale, alternatePaths }) => {
+}> = ({ locale }) => {
   return (
     <section className="flex items-center justify-between mt-8 md:mt-16 mb-12 motion-safe:animate-fade-up">
       <Link href={getBlogIndexPath(locale)} className="group">
@@ -106,7 +90,7 @@ export const Header: FunctionComponent<{
           {config.blog.name}
         </h1>
       </Link>
-      <Navigation locale={locale} alternatePaths={alternatePaths} />
+      <Navigation locale={locale} />
     </section>
   );
 };

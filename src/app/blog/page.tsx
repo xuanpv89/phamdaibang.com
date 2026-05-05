@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { BlogLanguageRedirect } from "@/components/BlogLanguageRedirect";
 
 export default function Page() {
-  redirect("/vi/blog");
+  return <BlogLanguageRedirect />;
 }

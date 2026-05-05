@@ -121,7 +121,6 @@ const Page = async (props: { params: Promise<Params> }) => {
 
   const result = await wisp.getPost(slug);
   const { posts } = await wisp.getRelatedPosts({ slug, limit: 3 });
-  const allPosts = await wisp.getPosts({ limit: "all" });
 
   if (!result || !result.post) {
     return notFound();
@@ -129,7 +128,6 @@ const Page = async (props: { params: Promise<Params> }) => {
 
   const post = localizePost(result.post, locale);
   const { title, publishedAt, updatedAt, image, author } = post;
-  const alternatePaths = getAlternatePostPaths(localePost, allPosts.posts);
 
   const jsonLd: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
@@ -153,7 +151,7 @@ const Page = async (props: { params: Promise<Params> }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container mx-auto px-5">
-        <Header locale={locale} alternatePaths={alternatePaths} />
+        <Header locale={locale} />
         <div className="max-w-prose mx-auto text-xl">
           <BlogPostContent post={post} locale={locale} />
           <RelatedPosts
