@@ -19,7 +19,7 @@ const nextConfig = {
             value: "blog.phamdaibang.com",
           },
         ],
-        destination: "https://www.phamdaibang.com/:path*",
+        destination: "https://phamdaibang.com/:path*",
         permanent: true,
       },
       {

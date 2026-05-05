@@ -3,6 +3,7 @@ export const locales = ["vi", "en"] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "vi";
+export const defaultPostLocale: Locale = "en";
 
 export const localeLabels: Record<Locale, string> = {
   vi: "VI",
@@ -158,9 +159,11 @@ export function isPostInLocale(
   locale: Locale
 ) {
   if (hasLocaleTag(tags, locale)) return true;
-  return locale === defaultLocale && !hasAnyLocaleTag(tags);
+  return locale === defaultPostLocale && !hasAnyLocaleTag(tags);
 }
 
 export function getLocaleFromTags(tags: { name: string }[] | undefined) {
-  return locales.find((locale) => hasLocaleTag(tags, locale)) ?? defaultLocale;
+  return (
+    locales.find((locale) => hasLocaleTag(tags, locale)) ?? defaultPostLocale
+  );
 }

@@ -10,6 +10,11 @@ const buildConfig = () => {
   const defaultDescription =
     process.env.NEXT_PUBLIC_BLOG_DESCRIPTION ||
     "Pham Dai Bang's Writing Corner";
+  const ogImageSecret = process.env.OG_IMAGE_SECRET;
+
+  if (!ogImageSecret && process.env.NODE_ENV === "production") {
+    throw new Error("OG_IMAGE_SECRET is missing");
+  }
 
   return {
     baseUrl: (
@@ -27,9 +32,7 @@ const buildConfig = () => {
         description: defaultDescription,
       },
     },
-    ogImageSecret:
-      process.env.OG_IMAGE_SECRET ||
-      "secret_used_for_signing_and_verifying_the_og_image_url",
+    ogImageSecret: ogImageSecret || "development-og-image-secret",
     wisp: {
       blogId,
     },
