@@ -4,6 +4,10 @@ export function getBlogIndexPath(locale: Locale) {
   return `/${locale}/blog`;
 }
 
+export function getCmsPath(locale: Locale) {
+  return `/${locale}/cms`;
+}
+
 export function getBlogPostPath(locale: Locale, slug: string) {
   return `/${locale}/blog/${slug}`;
 }

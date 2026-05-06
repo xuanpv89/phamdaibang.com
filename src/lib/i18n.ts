@@ -19,6 +19,7 @@ export const dictionary = {
   vi: {
     nav: {
       blog: "Blog",
+      cms: "CMS",
       about: "Về Đại Bàng",
     },
     languagePickerLabel: "Chọn ngôn ngữ",
@@ -73,6 +74,7 @@ Mời bạn cùng đi trong hành trình chiêm nghiệm này, nơi mỗi bài v
   en: {
     nav: {
       blog: "Blog",
+      cms: "CMS",
       about: "About Daibang",
     },
     languagePickerLabel: "Choose language",
