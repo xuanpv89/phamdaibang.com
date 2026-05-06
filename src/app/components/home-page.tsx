@@ -8,6 +8,7 @@ import {
   Mail,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import { LanguagePicker, useLanguage } from "./language";
 import Particles from "./particles";
@@ -222,9 +223,13 @@ export default function HomePage() {
 
           <div className="relative">
             <div className="relative overflow-hidden rounded-lg border border-white/10 bg-zinc-950 shadow-2xl shadow-black/50">
-              <img
+              <Image
                 src="/images/phamdaibang2026.webp"
                 alt="Pham Dai Bang speaking on stage"
+                width={960}
+                height={1200}
+                priority
+                sizes="(min-width: 1024px) 48vw, 100vw"
                 className="aspect-[4/5] w-full object-cover object-[50%_28%] opacity-95"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />

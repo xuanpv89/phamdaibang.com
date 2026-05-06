@@ -48,7 +48,8 @@ export default function Example() {
 						<Card key={s.href}>
 							<Link
 								href={s.href === "/blog" ? blogPath(language) : s.href}
-								target={s.href.startsWith("http") || s.href.startsWith("mailto:") ? "_blank" : undefined}
+								target={s.href.startsWith("http") ? "_blank" : undefined}
+								rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
 								className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24  lg:pb-48  md:p-16"
 							>
 								<span

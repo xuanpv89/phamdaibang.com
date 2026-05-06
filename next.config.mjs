@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "imagedelivery.net",
       },
+      {
+        protocol: "https",
+        hostname: "cv.phamdaibang.com",
+      },
     ],
   },
   redirects: async () => {

@@ -72,7 +72,11 @@ export function CommentList({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {config.allowUrls && comment.url ? (
-                  <Link href={comment.url} target="_blank" rel="nofollow">
+                  <Link
+                    href={comment.url}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
                     <span className="font-medium">{comment.author}</span>
                   </Link>
                 ) : (

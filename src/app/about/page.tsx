@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import {
 	ArrowRight,
@@ -182,9 +183,13 @@ export default function AboutPage() {
 						</div>
 					</div>
 					<div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
-						<img
+						<Image
 							src={images[0].src}
 							alt={images[0].alt}
+							width={900}
+							height={900}
+							priority
+							sizes="(min-width: 1024px) 46vw, 100vw"
 							className="h-full min-h-[320px] w-full object-cover"
 						/>
 					</div>
@@ -221,10 +226,13 @@ export default function AboutPage() {
 				<section className="mt-12">
 					<Card>
 						<div className="grid gap-6 p-5 md:grid-cols-[0.65fr_1fr] md:p-6">
-							<img
+							<Image
 								src="/images/phamdaibang-circle2026.webp"
 								alt="Pham Dai Bang circular profile mark"
+								width={720}
+								height={720}
 								loading="lazy"
+								sizes="(min-width: 768px) 35vw, 100vw"
 								className="aspect-square w-full rounded-xl object-cover"
 							/>
 							<div>
@@ -259,10 +267,13 @@ export default function AboutPage() {
 								key={image.src}
 								className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950"
 							>
-								<img
+								<Image
 									src={image.src}
 									alt={image.alt}
+									width={800}
+									height={600}
 									loading="lazy"
+									sizes="(min-width: 768px) 33vw, 100vw"
 									className="aspect-[4/3] w-full object-cover duration-500 hover:scale-[1.03]"
 								/>
 							</div>

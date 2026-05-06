@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 export type Language = "vi" | "en";
 
 const storageKey = "phamdaibang-language";
-const defaultLanguage: Language = "en";
+const defaultLanguage: Language = "vi";
 
 function isLanguage(value: string | null): value is Language {
 	return value === "vi" || value === "en";

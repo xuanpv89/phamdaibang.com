@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const storageKey = "phamdaibang-language";
-const defaultLanguage = "en";
+const defaultLanguage = "vi";
 
 function getSavedLanguage() {
   if (typeof window === "undefined") return defaultLanguage;
