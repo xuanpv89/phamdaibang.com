@@ -1,5 +1,10 @@
 const buildConfig = () => {
   const blogId = process.env.NEXT_PUBLIC_BLOG_ID;
+  const rawBaseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const normalizedBaseUrl = rawBaseUrl
+    .replace("://www.", "://")
+    .replace(/\/$/, "");
 
   const name = process.env.NEXT_PUBLIC_BLOG_DISPLAY_NAME || "Pham Dai Bang";
   const copyright = process.env.NEXT_PUBLIC_BLOG_COPYRIGHT || "Pham Dai Bang";
@@ -20,9 +25,7 @@ const buildConfig = () => {
   }
 
   return {
-    baseUrl: (
-      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-    ).replace(/\/$/, ""),
+    baseUrl: normalizedBaseUrl,
     blog: {
       name,
       copyright,
