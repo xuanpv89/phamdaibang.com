@@ -1,6 +1,6 @@
 import type { Language } from "../components/language";
 
-export const portfolioUrl = "https://cv.phamdaibang.com/";
+export const portfolioUrl = "https://portfolio.phamdaibang.com/";
 
 export type PortfolioProject = {
 	slug: string;

@@ -9,7 +9,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cv.phamdaibang.com",
+        hostname: "portfolio.phamdaibang.com",
       },
     ],
   },

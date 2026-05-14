@@ -42,7 +42,7 @@ const copy: Record<
     navigation: [
       { name: "Bài viết", path: "/blog" },
       { name: "Công việc", href: "https://www.folksteam.com" },
-      { name: "Portfolio", href: "https://cv.phamdaibang.com" },
+      { name: "Portfolio", href: "https://portfolio.phamdaibang.com/" },
       { name: "Giới thiệu", path: "/about" },
       { name: "Dự án", path: "/projects" },
       { name: "Liên hệ", path: "/contact" },
@@ -90,7 +90,7 @@ const copy: Record<
     navigation: [
       { name: "Blog", path: "/blog" },
       { name: "Work", href: "https://www.folksteam.com" },
-      { name: "Portfolio", href: "https://cv.phamdaibang.com" },
+      { name: "Portfolio", href: "https://portfolio.phamdaibang.com/" },
       { name: "About", path: "/about" },
       { name: "Projects", path: "/projects" },
       { name: "Contact", path: "/contact" },
@@ -200,7 +200,7 @@ export default function HomePage() {
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <Link
-                href="https://cv.phamdaibang.com"
+                href="https://portfolio.phamdaibang.com/"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white duration-200 hover:border-amber-200/70 hover:text-amber-100"
               >
                 {text.secondary}

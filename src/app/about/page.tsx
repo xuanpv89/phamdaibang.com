@@ -15,8 +15,8 @@ import { Navigation } from "../components/nav";
 import { useLanguage } from "../components/language";
 import { blogPath, sitePath } from "../components/site-paths";
 
-const portfolioUrl = "https://cv.phamdaibang.com/";
-const mediaBase = "https://cv.phamdaibang.com/_assets/media";
+const portfolioUrl = "https://portfolio.phamdaibang.com/";
+const mediaBase = "https://portfolio.phamdaibang.com/_assets/media";
 
 const images = [
 	{
